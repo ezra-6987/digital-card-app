@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image 2 Details</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="banner text-center my-4 p-4">
+      <h1 class="display-4">Image 1 Details</h1>
+    </div>
+    <div class="content text-center">
+      <img src="image2.jpg" class="img-fluid rounded mb-4" alt="Image 2">
+      <p class="lead mb-4">Details about Image 2...</p>
+
+      <form action="/submit-order" method="POST" class="mb-5">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="phone">Phone Number</label>
+            <input type="text" class="form-control" id="phone" name="phone" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="orderDate">Order Date</label>
+            <input type="date" class="form-control" id="orderDate" name="orderDate" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="uploadedImage">Upload Your Images</label>
+          <input type="file" class="form-control-file" id="images" name="images" multiple required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      </form>
+    </div>
+  </div>
+  <footer class="footer text-center py-4 bg-dark text-white mt-5">
+    <p>&copy; 2024 Slothly Studio.Bn</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

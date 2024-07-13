@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="banner text-center my-4">
+      <h1>Admin Portal</h1>
+    </div>
+    <div class="content">
+      <h2>Orders</h2>
+      <div id="orders">
+        <!-- Orders will be dynamically loaded here -->
+      </div>
+      <div class="content">
+        <h2>Messages</h2>
+        <div id="messages">
+          <!-- Messages will be dynamically loaded here -->
+        </div>
+    </div>
+  </div>
+  <footer class="footer text-center py-4">
+    <p>&copy; 2024 Slothly Studio.Bn</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $.getJSON('/orders', function(data) {
+        let ordersHtml = '';
+        for (const [orderNumber, orderDetails] of Object.entries(data)) {
+          ordersHtml += `<div class="order">
+            <h3>Order Number: ${orderNumber}</h3>
+            <p>Name: ${orderDetails.name}</p>
+            <p>Email: ${orderDetails.email}</p>
+            <p>Phone: ${orderDetails.phone}</p>
+            <p>Order Date: ${orderDetails.orderDate}</p>
+            <h4>Uploaded Images:</h4>
+            <div class="uploaded-images">`;
+          orderDetails.uploadedImages.forEach(file => {
+            ordersHtml += `<img src="/uploads/${file}" class="img-thumbnail" alt="${file}">`;
+          });
+          ordersHtml += `</div></div>`;
+        }
+        $('#orders').html(ordersHtml);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        console.error('Error fetching orders:', textStatus, errorThrown);
+        $('#orders').html('<p>Error fetching orders.</p>');
+      });
+    });
+  </script>
+   <script>
+    fetch('/messages') // Fetch messages from server
+      .then(response => response.json())
+      .then(messages => {
+        const messagesContainer = document.getElementById('messages');
+        messages.forEach(message => {
+          const messageElement = document.createElement('div');
+          messageElement.innerHTML = `
+            <div class="card mt-3">
+              <div class="card-body">
+                <h5 class="card-title">${message.name}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">${message.email}</h6>
+                <p class="card-text">${message.message}</p>
+                <small class="text-muted">Submitted at ${new Date(message.submittedAt).toLocaleString()}</small>
+              </div>
+            </div>
+          `;
+          messagesContainer.appendChild(messageElement);
+        });
+      })
+      .catch(error => console.error('Error fetching messages:', error));
+  </script>
+</body>
+</html>
