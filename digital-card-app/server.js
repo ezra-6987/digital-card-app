@@ -23,17 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/read-file', (req, res) => {
-  const filePath = path.join(__dirname, 'public', `image${imageId}.html`);
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading file:', err);
-      return res.status(500).send('Error reading file.');
-    }
-    res.send(data);
-  });
-});
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -51,8 +40,16 @@ app.get('/image/:id', (req, res) => {
       res.status(404).send('File not found');
   }
   });
- 
-  app.post('/submit-order', upload.array('uploadedImages', 10), (req, res) => {
+
+  const uploadMultiple = upload.fields([
+    { name: 'images', maxCount: 10},
+    { name: 'anotherField', maxCount: 5}
+  ]);
+
+  app.post('/submit-order', uploadMultiple, (req, res) => {
+    console.log('Request Body:', req.body);
+    console.log('Request Files:', req.files);
+
     const orderDetails = req.body;
     const orderNumber = Math.floor(Math.random() * 1000000).toString(); // Generate a random order number
     

@@ -17,7 +17,7 @@
       <img src="image2.jpg" class="img-fluid rounded mb-4" alt="Image 2">
       <p class="lead mb-4">Details about Image 2...</p>
 
-      <form action="/submit-order" method="POST" class="mb-5">
+      <form action="/submit-order" method="POST" enctype="multipart/form-data" class="mb-5">
         <div class="form-row">
           <div class="form-group col-md-6">
             <label for="name">Name</label>
@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="uploadedImage">Upload Your Images</label>
+          <label for="images">Upload Your Images</label>
           <input type="file" class="form-control-file" id="images" name="images" multiple required>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Submit</button>
